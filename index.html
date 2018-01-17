@@ -71,6 +71,11 @@ var LIST_EMPLOYEES = 'LIST_EMPLOYEES';
 var LIST_SELECTED_EMPLOYEES = 'LIST_SELECTED_EMPLOYEES';
 var currentEmployees = null;
 var currentSelectedEmployee = null;
+
+var audio1 = new Audio('sounds/sound1.wav');
+var audio2 = new Audio('sounds/sound2.wav');
+var audio3 = new Audio('sounds/sound3.wav');
+
 function generateNumber(index) {
   var duration = 2000;
 	var wait = 100;
@@ -91,14 +96,20 @@ if(index == 0){
       clearInterval(animationTimer);
 	  if(index == 3)
 	  {
+		audio2.pause();
 		updateEmployee(-1);
 		updateEmployeeList();
+		audio3.play();
 	  }else{
-		generateNumber(index + 1)
+		generateNumber(index + 1);
+		if(index == 0) {audio1.pause();}
 	  }
     } else {
 		var value = Math.floor(Math.random() * currentEmployees.length);
 		updateEmployee(value);
+		if(index == 1 || index == 2 || index == 3){
+			audio2.play();
+		}
     }
   }, wait);
 }
@@ -136,6 +147,7 @@ function startWorker() {
 	document.getElementById("startButton").disabled = true;
 	document.getElementById("listButton").disabled = true;
 	document.getElementById("resetButton").disabled = true;
+	audio1.play();
 }
 
 
